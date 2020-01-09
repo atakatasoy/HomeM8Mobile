@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:HomeM8.CustomRenderers"
+             xmlns:local="clr-namespace:HomeM8"
+             x:Class="HomeM8.Views.PartialView.CustomEntry">
+  <ContentView.Content>
+        <Grid RowSpacing="0"
+              Margin="0"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"
+                   CornerRadius="25"
+                   BackgroundColor="{DynamicResource LoginEntryBackground}"
+                   HeightRequest="40"
+                   Padding="3,0"
+                   HorizontalOptions="FillAndExpand"
+                   BorderColor="{DynamicResource InputFrameBorderColor}">
+                <Grid Padding="0"
+                      Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Grid.Column="0"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"
+                           Source="{Binding ImageSourceValue}"
+                           Margin="2,9,0,9"
+                           Aspect="AspectFit"/>
+
+                    <cc:BorderlessEntry Grid.Column="1"
+                                        Margin="0"
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"
+                                        ReturnType="Done"
+                                        Text="{Binding SourceText}"
+                                        x:Name="PwEntry"
+                                        Keyboard="{Binding KeyboardValue}"
+                                        ReturnCommand="{Binding ReturnCommand}"
+                                        HorizontalTextAlignment="End"
+                                        FontSize="13"
+                                        FontAttributes="None"
+                                        FontFamily="{DynamicResource body_style_regular}"
+                                        TextColor="{DynamicResource ButtonTextColor}"
+                                        IsPassword="{Binding IsPassword}"
+                                        Placeholder="{Binding PlaceholderString}"
+                                        PlaceholderColor="{DynamicResource ButtonTextColor}"/>
+                </Grid>
+            </Frame>
+            <Grid HeightRequest="0"
+                  WidthRequest="0"
+                  Grid.Row="1"
+                  Padding="0"
+                  BackgroundColor="Transparent"
+                  x:Name="errorGrid">
+                <Label TextColor="Red"
+                       Padding="0"
+                       Margin="0"
+                       Text="{Binding ErrorText}"
+                       x:Name="errorLabel"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand"/>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

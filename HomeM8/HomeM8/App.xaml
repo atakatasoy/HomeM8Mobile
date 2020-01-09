@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HomeM8"
+             xmlns:views="clr-namespace:HomeM8.Views.PartialView"
+             x:Class="HomeM8.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#1b1b1b</Color>
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{DynamicResource PageWrapperColor}"/>
+            </Style>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="Black"/>
+            </Style>
+            
+            <Color x:Key="NotificationOwnerTextColor">#385898</Color>
+            <Color x:Key="WarningColor">#ff6961</Color>
+            <Color x:Key="LightestGray">#f7f7f7</Color>
+            <Color x:Key="PermissionColor">#C0D890</Color>
+            <Color x:Key="PageWrapperColor">#8DA4CE</Color>
+            <Color x:Key="GridLinesColor">#1b1b1b</Color>
+            <Color x:Key="ButtonColor">#677DAC</Color>
+            <Color x:Key="ButtonTextColor">#FFFFFF</Color>
+            <Color x:Key="InputFrameBorderColor">#FFFFFF</Color>
+            <Color x:Key="AppInfoStringsColor">#ffffff</Color>
+            <Color x:Key="MoneyColor">#00ff00</Color>
+            <Color x:Key="BottomTabbarBackgroundColor">#1b1b1b</Color>
+            <Color x:Key="Turuncu">#E77958</Color>
+            <Color x:Key="LoginEntryBackground">#839AC4</Color>
+            <DataTemplate x:Key="NotificationListview">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid HeightRequest="35">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="7*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   VerticalOptions="CenterAndExpand"
+                                   TextColor="{DynamicResource NotificationOwnerTextColor}"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   Text="{Binding OwnerNameSurname}"/>
+                            <StackLayout Grid.Column="1"
+                                         Orientation="Horizontal"
+                                         Spacing="2">
+                                <Label VerticalOptions="Center"
+                                       HorizontalOptions="Center"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"
+                                       Text="{Binding NotificationMessage}"/>
+                                <Label VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        VerticalTextAlignment="Center"
+                                        TextColor="{DynamicResource NotificationOwnerTextColor}"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding NotificationCommentCount}"/>
+                            </StackLayout>
+                            
+                            <Grid Grid.Column="2"
+                                  BackgroundColor="Red">
+                                
+                            </Grid>
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+            <ControlTemplate x:Key="BottomNavigationBarTemplate">
+                <Grid Margin="0"
+                      Padding="0"
+                      BackgroundColor="{DynamicResource PageWrapperColor}">
+                    <Grid Padding="0"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      BackgroundColor="{DynamicResource PageWrapperColor}"
+                      Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <ContentPresenter Grid.Row="0" />
+                        <Grid Grid.Row="1"
+                          BindingContext="{Binding ., Source={x:Static local:BottomTabbarViewModel.Instance}}"
+                          IsVisible="{Binding BottomTabbarVisible}"
+                          VerticalOptions="FillAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          BackgroundColor="{DynamicResource BottomTabbarBackgroundColor}"
+                          Padding="2"
+                          ColumnSpacing="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                Text="1"
+                                TextColor="Black"
+                                Command="{Binding BottomTabbarCommand}"
+                                BackgroundColor="White">
+                                <Button.CommandParameter>
+                                    <x:Int32>0</x:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Grid.Column="1"
+                                BackgroundColor="White"
+                                TextColor="Black"
+                                Command="{Binding BottomTabbarCommand}"
+                                Text="2">
+                                <Button.CommandParameter>
+                                    <x:Int32>1</x:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Grid.Column="2"
+                                BackgroundColor="White"
+                                TextColor="Black"
+                                Command="{Binding BottomTabbarCommand}"
+                                Text="3">
+                                <Button.CommandParameter>
+                                    <x:Int32>2</x:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Grid.Column="3"
+                                BackgroundColor="White"
+                                Command="{Binding BottomTabbarCommand}"
+                                TextColor="Black"
+                                Text="4">
+                                <Button.CommandParameter>
+                                    <x:Int32>3</x:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button Grid.Column="4"
+                                BackgroundColor="White"
+                                Command="{Binding BottomTabbarCommand}"
+                                TextColor="Black"
+                                Text="5">
+                                <Button.CommandParameter>
+                                    <x:Int32>4</x:Int32>
+                                </Button.CommandParameter>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{DynamicResource ButtonColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource ButtonTextColor}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource body_style_regular }"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily" Value="{DynamicResource body_style_regular}"/>
+            </Style>
+            <OnPlatform x:Key = "body_style_regular" x:TypeArguments = "x:String"
+                    Android = "Solway-Regular.ttf#Solway-Regular" iOS = "Solway-Regular" />
+            <OnPlatform x:Key = "body_style_light" x:TypeArguments = "x:String"
+                    Android = "Solway-Light.ttf#Solway-Light" iOS = "Solway-Light" />
+            <OnPlatform x:Key = "body_style_bold" x:TypeArguments = "x:String"
+                    Android = "Solway-Bold.ttf#Solway-Bold" iOS = "Solway-Bold" />
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="{DynamicResource body_style_regular}"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

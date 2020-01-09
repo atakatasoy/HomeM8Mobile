@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:HomeM8.CustomRenderers"
+             xmlns:local="clr-namespace:HomeM8"
+             xmlns:views="clr-namespace:HomeM8.Views.PartialView"
+             x:Class="HomeM8.Views.LoginPage"
+             x:Name="page">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand"
+              Margin="0"
+              Padding="15,20,15,15"
+              BackgroundColor="{DynamicResource PageWrapperColor}"
+              RowSpacing="0"
+              x:Name="WrapperGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   BackgroundColor="Transparent"
+                   Padding="0"
+                   Margin="0,20,0,0">
+                <Image Source="../HomeM8Icon.png"
+                       Aspect="AspectFit"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"/>
+            </Frame>
+            <StackLayout Grid.Row="0"
+                         VerticalOptions="Start"
+                         HorizontalOptions="EndAndExpand"
+                         Spacing="10"
+                         Margin="0,-15,0,0"
+                         Padding="0"
+                         Orientation="Horizontal">
+                <Image Aspect="AspectFill"
+                       HeightRequest="24"
+                       Margin="0"
+                       WidthRequest="24"
+                       x:Name="turkish"
+                       Source="../turkish.png"/>
+                <Image Aspect="AspectFill"
+                       Margin="0"
+                       x:Name="english"
+                       WidthRequest="24"
+                       HeightRequest="24"
+                       Source="../english.png"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center"
+                         Margin="0"
+                         Padding="0"
+                         Spacing="20">
+                <views:CustomEntry SourceText="{Binding BindingContext.Username,Source={x:Reference page}}"
+                                   ErrorText="{Binding BindingContext.Error,Source={x:Reference page}}"
+                                   PlaceholderString="{Binding LoginPageContent.UsernameEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   ImageSourceValue="../usericon.png"
+                                   IsPassword="False"
+                                   x:Name="userEntry"
+                                   Returned="Entry_Returned"/>
+                <views:CustomEntry SourceText="{Binding BindingContext.Password,Source={x:Reference page}}"
+                                   ErrorText="{Binding BindingContext.Error,Source={x:Reference page}}"
+                                   PlaceholderString="{Binding LoginPageContent.PasswordEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   ImageSourceValue="../lockicon.png"
+                                   IsPassword="True"
+                                   x:Name="passEntry"
+                                   Returned="Entry_Returned"/>
+
+                <Grid HorizontalOptions="FillAndExpand"
+                      HeightRequest="35"
+                      Margin="0,3,0,0"
+                      Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1"
+                            Text="{Binding LoginPageContent.LoginButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                            HorizontalOptions="FillAndExpand"
+                            HeightRequest="35"
+                            CornerRadius="15"
+                            TextColor="{DynamicResource ButtonTextColor}"
+                            BackgroundColor="{DynamicResource ButtonColor}"
+                            Padding="0"
+                            Command="{Binding BindingContext.LoginCommand,Source={x:Reference page}}"
+                            Margin="0"/>
+                    <Button Grid.Column="0"
+                            Text="{Binding LoginPageContent.RegisterButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                            HorizontalOptions="FillAndExpand"
+                            HeightRequest="35"
+                            CornerRadius="15"
+                            TextColor="{DynamicResource ButtonTextColor}"
+                            BackgroundColor="{DynamicResource ButtonColor}"
+                            Padding="0"
+                            Clicked="Button_Clicked_1"
+                            Margin="0"/>
+                </Grid>
+                <Button Text="{Binding LoginPageContent.ForgotPasswordButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="35"
+                        CornerRadius="15"
+                        TextColor="Black"
+                        Clicked="Button_Clicked"
+                        BackgroundColor="White"
+                        BorderWidth="0"
+                        Margin="0"
+                        Padding="0"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

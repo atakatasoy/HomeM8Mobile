@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:HomeM8.CustomRenderers"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:local="clr-namespace:HomeM8"
+             xmlns:views="clr-namespace:HomeM8.Views.PartialView"
+             x:Name="page"
+             x:Class="HomeM8.Views.RegisterPage">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand"
+              Margin="0"
+              Padding="15,0,15,15"
+              RowSpacing="0"
+              BackgroundColor="{DynamicResource PageWrapperColor}"
+              x:Name="WrapperGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Padding="0"
+                   BackgroundColor="Transparent">
+                <Image Source="../HomeM8Icon.png"
+                       Margin="0,40,0,0"
+                       Aspect="AspectFit"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"/>
+            </Frame>
+            <Label Text="{Binding RegisterPageContent.PageTitle,Source={x:Static local:AppConfigurationModel.Instance}}"
+                   FontSize="18"
+                   Grid.Row="1"
+                   VerticalTextAlignment="End"
+                   HorizontalTextAlignment="Center"
+                   Margin="0"
+                   Padding="0"
+                   TextColor="{DynamicResource AppInfoStringsColor}"/>
+            <!--Main Stack-->
+            <StackLayout Grid.Row="2"
+                         Margin="0,15,0,0"
+                         VerticalOptions="Center">
+                <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center"
+                         Margin="0,0,0,20"
+                         Padding="0"
+                         Spacing="20"
+                         IsVisible="False"
+                         x:Name="secondStack">
+                    <Grid RowSpacing="0"
+                          Margin="0"
+                          Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0"
+                               CornerRadius="25"
+                               BackgroundColor="{DynamicResource LoginEntryBackground}"
+                               HeightRequest="40"
+                               Padding="3,0"
+                               HorizontalOptions="FillAndExpand"
+                               BorderColor="{DynamicResource InputFrameBorderColor}">
+                            <Grid Padding="0"
+                                  Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0"
+                               VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand"
+                               Source="../usericon.png"
+                               Margin="0,9,0,9"
+                               Aspect="AspectFit"
+                               IsVisible="{Binding UsernameCheckVisible,Converter={local:BooleanInversionConverter}}"/>
+                                <lottie:AnimationView Grid.Column="0"
+                                              VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand"
+                                              AutoPlay="True"
+                                              Loop="True"
+                                              Margin="0,0,0,3"
+                                              Animation="EmailCheck.json"
+                                              Scale="3"
+                                              IsVisible="{Binding UsernameCheckVisible}"/>
+                                <lottie:AnimationView Grid.Column="2"
+                                              VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand"
+                                              Loop="False"
+                                              IsPlaying="False"
+                                              x:Name="LottieUser"/>
+                                <cc:BorderlessEntry Grid.Column="1"
+                                                    Text="{Binding Username}"
+                                                    Margin="0"
+                                                    VerticalOptions="FillAndExpand"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Placeholder="{Binding RegisterPageContent.UsernameEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                    HorizontalTextAlignment="Center"
+                                                    VerticalTextAlignment="Center"
+                                                    TextColor="{DynamicResource ButtonTextColor}"
+                                                    Unfocused="UsernameEntry_Unfocused"
+                                                    Focused="UsernameEntry_Focused"
+                                                    FontSize="13"
+                                                    FontAttributes="None"
+                                                    FontFamily="{DynamicResource body_style_regular}"
+                                                    ReturnType="Next"
+                                                    x:Name="UsernameEntry"
+                                                    PlaceholderColor="{DynamicResource ButtonTextColor}"/>
+                            </Grid>
+                        </Frame>
+                        <Grid HeightRequest="0"
+                              WidthRequest="0"
+                              Grid.Row="1"
+                              Padding="0"
+                              BackgroundColor="Transparent"
+                              x:Name="userErrorGrid">
+                            <Label TextColor="Red"
+                                   Padding="0"
+                                   Margin="0"
+                                   Text="{Binding Error}"
+                                   x:Name="userErrorLabel"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="FillAndExpand"/>
+                        </Grid>
+                    </Grid>
+                    <views:CustomEntry SourceText="{Binding BindingContext.Password,Source={x:Reference page}}"
+                                       ErrorText="{Binding BindingContext.Error,Source={x:Reference page}}"
+                                       PlaceholderString="{Binding RegisterPageContent.PasswordEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                       ImageSourceValue="../lockicon.png"
+                                       IsPassword="True"
+                                       x:Name="passEntry"
+                                       Returned="Entry_Returned"/>
+                    <views:CustomEntry SourceText="{Binding BindingContext.RepeatPassword,Source={x:Reference page}}"
+                                       ErrorText="{Binding BindingContext.Error,Source={x:Reference page}}"
+                                       PlaceholderString="{Binding RegisterPageContent.RepeatPasswordEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                       ImageSourceValue="../lockicon.png"
+                                       IsPassword="True"
+                                       x:Name="rePassEntry"
+                                       Returned="Entry_Returned"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="Center"
+                         Margin="0,0,0,20"
+                         Padding="0"
+                         Spacing="20"
+                         x:Name="firstStack">
+                    <Grid RowSpacing="0"
+                          Margin="0"
+                          Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0"
+                               CornerRadius="25"
+                               BackgroundColor="{DynamicResource LoginEntryBackground}"
+                               HeightRequest="40"
+                               Padding="3,0"
+                               HorizontalOptions="FillAndExpand"
+                               BorderColor="{DynamicResource InputFrameBorderColor}">
+                            <Grid Padding="0"
+                          Margin="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0"
+                               VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand"
+                               Source="../mailicon.png"
+                               Margin="2,9,0,9"
+                               Aspect="AspectFit"
+                               IsVisible="{Binding EmailCheckVisible, Converter={local:BooleanInversionConverter}}"/>
+                                <lottie:AnimationView Grid.Column="0"
+                                              Loop="True"
+                                              Scale="3"
+                                              Margin="0,0,0,2"
+                                              AutoPlay="True"
+                                              VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand"
+                                              Animation="EmailCheck.json"
+                                              IsVisible="{Binding EmailCheckVisible}"/>
+                                <lottie:AnimationView Grid.Column="2"
+                                              VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand"
+                                              x:Name="LottieEmail"
+                                              Loop="False"
+                                              IsPlaying="False"/>
+                                <cc:BorderlessEntry Grid.Column="1"
+                                                    Text="{Binding Email}"
+                                                    Margin="0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Placeholder="{Binding RegisterPageContent.EmailEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                    HorizontalTextAlignment="Center"
+                                                    TextColor="{DynamicResource ButtonTextColor}"
+                                                    ReturnType="Next"
+                                                    FontSize="13"
+                                                    FontAttributes="None"
+                                                    Unfocused="EmailEntry_Unfocused"
+                                                    Focused="EmailEntry_Focused"
+                                                    x:Name="EmailEntry"
+                                                    FontFamily="{DynamicResource body_style_regular}"
+                                                    PlaceholderColor="{DynamicResource ButtonTextColor}"/>
+                            </Grid>
+                        </Frame>
+                        <Grid HeightRequest="0"
+                              WidthRequest="0"
+                              Grid.Row="1"
+                              Padding="0"
+                              BackgroundColor="Transparent"
+                              x:Name="mailErrorGrid">
+                            <Label TextColor="Red"
+                                   Padding="0"
+                                   Margin="0"
+                                   Text="{Binding Error}"
+                                   x:Name="mailErrorLabel"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="FillAndExpand"/>
+                        </Grid>
+                    </Grid>
+                    <views:CustomEntry SourceText="{Binding BindingContext.NameSurname,Source={x:Reference page}}"
+                                       ErrorText="{Binding BindingContext.Error,Source={x:Reference page}}"
+                                       PlaceholderString="{Binding RegisterPageContent.NameSurnameEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                       ImageSourceValue="../usericon.png"
+                                       IsPassword="False"
+                                       x:Name="nameEntry"
+                                       Returned="Entry_Returned"/>
+                    <views:CustomEntry SourceText="{Binding BindingContext.PhoneNumber,Source={x:Reference page}}"
+                                       ErrorText="{Binding BindingContext.Error,Source={x:Reference page}}"
+                                       PlaceholderString="{Binding RegisterPageContent.PhoneEntryPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                       IsPassword="False"
+                                       x:Name="phoneEntry"
+                                       ImageSourceValue="../phoneicon.png"
+                                       KeyboardValue="Telephone"
+                                       Returned="Entry_Returned"/>
+                </StackLayout>
+                <Button Text="{Binding ButtonText}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start"
+                    HeightRequest="35"
+                    CornerRadius="15"
+                    Margin="0,0,0,10"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource ButtonColor}"
+                    TextColor="{DynamicResource ButtonTextColor}"
+                    Command="{Binding RegisterCommand}"
+                    Grid.Row="2"/>
+            </StackLayout>
+            <!--2.Sayfa-->
+            
+            <!--1. sayfa-->
+            
+        
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

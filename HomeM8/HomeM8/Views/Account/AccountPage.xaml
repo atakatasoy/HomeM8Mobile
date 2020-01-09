@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HomeM8"
+             xmlns:cc="clr-namespace:HomeM8.CustomRenderers"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             x:Class="HomeM8.Views.Account.AccountPage"
+             ControlTemplate="{DynamicResource BottomNavigationBarTemplate}">
+    <ContentPage.Content>
+        <StackLayout Spacing="7"
+                     Padding="10,5,10,5">
+            <Grid MinimumHeightRequest="40"
+                  RowSpacing="0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Label_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding AccountPageContent.CurrentHomeLabelString, Source={x:Static local:AppConfigurationModel.Instance}}"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="0"
+                       HorizontalOptions="StartAndExpand"
+                       Margin="0"
+                       FontSize="18"/>
+                <Image Source="../rightarrow.png"
+                       HorizontalOptions="End"
+                       HeightRequest="32"
+                       Grid.Row="0"
+                       WidthRequest="32"
+                       Margin="2,2,5,2"
+                       Aspect="AspectFit"/>
+
+                <Grid Grid.Row="1"
+                      BackgroundColor="LightGray"/>
+                
+                <ScrollView VerticalScrollBarVisibility="Always"
+                            Grid.Row="2"
+                            IsVisible="False"
+                            Margin="0,3,0,0"
+                            HorizontalScrollBarVisibility="Always"
+                            Padding="2">
+                    <StackLayout Padding="5,0,5,0"
+                                 HorizontalOptions="FillAndExpand"
+                                 x:Name="currentHomeStack"
+                                 VerticalOptions="FillAndExpand">
+                        <StackLayout x:Name="currentHomeInfoStack">
+                            <StackLayout Spacing="0"
+                                     Margin="0"
+                                     Padding="0"
+                                     Orientation="Horizontal">
+                                <Label Text="{Binding AccountPageContent.HomeNameString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Label Text="{Binding AccountInfo.HomeName}"
+                               FontSize="15"/>
+                            </StackLayout>
+                            <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                            <StackLayout Spacing="0"
+                                     Margin="0"
+                                     Padding="0"
+                                     Orientation="Horizontal">
+                                <Label Text="{Binding AccountPageContent.HomeAddressString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Label Text="{Binding AccountInfo.HomeAddress}"
+                               FontSize="15"/>
+                            </StackLayout>
+
+                            <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                            <StackLayout>
+                                <Label Text="{Binding AccountPageContent.HomeMembersString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                                <StackLayout x:Name="membersStack">
+
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal"
+                                     Spacing="0">
+                                <Label Text="{Binding AccountPageContent.HomeManagerString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Label Text="{Binding AccountInfo.HomeManager}"
+                                   FontSize="15"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="{DynamicResource NotificationOwnerTextColor}"/>
+                            </StackLayout>
+                            <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                            <StackLayout>
+                                <Label Text="{Binding AccountPageContent.HomeRulesString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                                <StackLayout x:Name="rulesStack">
+
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout>
+                                <Label Text="{Binding AccountPageContent.HomePermissionsString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                                <StackLayout x:Name="permissionStack">
+
+                                </StackLayout>
+                            </StackLayout>
+                            <Grid Margin="0,8,0,3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0"
+                                         VerticalOptions="EndAndExpand"
+                                         Orientation="Horizontal"
+                                         x:Name="add"
+                                         Spacing="5">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="StackTapped"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Source="../adduser.png"
+                                       Aspect="AspectFit"
+                                       HeightRequest="40"/>
+                                    <Label Padding="0"
+                                       VerticalTextAlignment="Center"
+                                       Text="{Binding AccountPageContent.RequestsButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                       FontSize="19"
+                                       HeightRequest="40"
+                                       BackgroundColor="Transparent"
+                                       TextColor="{DynamicResource NavigationPrimary}"
+                                       HorizontalOptions="StartAndExpand">
+                                    </Label>
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="1"
+                                         Spacing="5"
+                                         VerticalOptions="EndAndExpand"
+                                         Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="StackTapped"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding AccountPageContent.DeleteButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                       HeightRequest="40"
+                                       VerticalTextAlignment="Center"
+                                       Padding="0"
+                                       FontSize="19"
+                                       BackgroundColor="Transparent"
+                                       TextColor="{DynamicResource WarningColor}"
+                                       HorizontalOptions="EndAndExpand"/>
+                                    <Image Source="../garbage.png"
+                                       Aspect="AspectFit"
+                                       HeightRequest="40"/>
+                                </StackLayout>
+
+                            </Grid>
+                        </StackLayout>
+                        <Label Text="{Binding ApplicationContent.NoConnectedHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                               Margin="13,5,0,5"
+                               x:Name="noConnectionLabel"
+                               TextColor="{DynamicResource WarningColor}"
+                               FontSize="15"
+                               VerticalTextAlignment="Center"
+                               IsVisible="False"/>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+
+            <Grid RowSpacing="0"
+                  MinimumHeightRequest="40">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Label_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding AccountPageContent.MyHomesLabelString, Source={x:Static local:AppConfigurationModel.Instance}}"
+                       HeightRequest="30"
+                       Grid.Row="0"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand"
+                       FontSize="18">
+                </Label>
+                <Grid Grid.Row="1"
+                      BackgroundColor="LightGray"/>
+                <Image Source="../rightarrow.png"
+                       HorizontalOptions="End"
+                       Grid.Row="0"
+                       HeightRequest="32"
+                       WidthRequest="32"
+                       Margin="2,2,5,2"
+                       Aspect="AspectFit"/>
+                <ScrollView IsVisible="False"
+                            VerticalScrollBarVisibility="Always"
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Always"
+                            Padding="0,2,0,2">
+                    <StackLayout x:Name="homeStack">
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+
+            <Grid MinimumHeightRequest="40"
+                  RowSpacing="0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding AccountPageContent.SearchHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                       Grid.Row="0"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand"
+                       FontSize="18"/>
+                <Grid Grid.Row="1"
+                      BackgroundColor="LightGray"/>
+                <Image Source="../rightarrow.png"
+                       HorizontalOptions="End"
+                       Grid.Row="0"
+                       x:Name="stackImage"
+                       HeightRequest="32"
+                       WidthRequest="32"
+                       Margin="2,2,5,2"
+                       Aspect="AspectFit"/>
+                <StackLayout Padding="6,5,6,2"
+                                 x:Name="stack"
+                                 Grid.Row="2"
+                                 IsVisible="False">
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="0">
+                            <cc:BorderlessEntry Text="{Binding HomeSearchBarValue}"
+                                                Placeholder="{Binding AccountPageContent.SearchEntryPlaceholder,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                HorizontalOptions="FillAndExpand"
+                                                HeightRequest="40"
+                                                x:Name="searchEntry"
+                                                VerticalTextAlignment="Center"
+                                                HorizontalTextAlignment="Center"
+                                                ReturnType="Done"
+                                                FontFamily="{DynamicResource body_style_regular}"
+                                                TextColor="Gray"
+                                                BackgroundColor="{DynamicResource LightestGray}"
+                                                PlaceholderColor="Gray"/>
+                            <ImageButton Source="../search.png"
+                                         Clicked="SearchButton"
+                                         HeightRequest="40"
+                                         Padding="4"
+                                         WidthRequest="40"
+                                         BackgroundColor="{DynamicResource LightestGray}"
+                                         Aspect="AspectFit"/>
+                        </StackLayout>
+                        <Grid x:Name="grid"
+                              IsClippedToBounds="True">
+                            <ListView x:Name="searchStack"
+                                      ItemsSource="{Binding SearchResult}"
+                                      VerticalOptions="FillAndExpand"
+                                      SelectionMode="None"
+                                      HorizontalOptions="FillAndExpand"
+                                      HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Grid Padding="3"
+                                                  Margin="5,8,8,8">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="35"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="../home.png"
+                                                       Grid.Column="0"
+                                                       Margin="0"
+                                                       WidthRequest="35"
+                                                       HeightRequest="35"/>
+                                                <Grid Grid.Column="1"
+                                                      Margin="4,0,0,0"
+                                                      Padding="0"
+                                                      VerticalOptions="Center">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="1"/>
+                                                        <ColumnDefinition Width="60"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="1"
+                                                          Margin="0,5,0,5"
+                                                          BackgroundColor="LightGray"/>
+                                                <StackLayout Grid.Column="0"
+                                                                 VerticalOptions="Center">
+                                                    <Grid ColumnSpacing="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Text="{Binding AccountPageContent.HomeNameString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                               Grid.Column="0"/>
+                                                        <Label Text="{Binding HomeName}"
+                                                               Grid.Column="1"/>
+                                                    </Grid>
+
+                                                    <Grid ColumnSpacing="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Text="{Binding AccountPageContent.HomeManagerString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                                   Grid.Column="0"/>
+                                                        <Label Text="{Binding HomeManager}"
+                                                                   TextColor="{DynamicResource NotificationOwnerTextColor}"
+                                                                   Grid.Column="1"/>
+                                                    </Grid>
+                                                    <Grid ColumnSpacing="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Text="{Binding AccountPageContent.PeopleCountString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                               Grid.Column="0"/>
+                                                        <Label Text="{Binding PeopleCount}"
+                                                               Grid.Column="1"/>
+                                                    </Grid>
+
+                                                </StackLayout>
+                                                <Button Text="{Binding AccountPageContent.JoinButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                            Padding="0"
+                                                            Command="{Binding JoinCommand}"
+                                                            IsVisible="{Binding AlreadyRequested ,Converter={local:BooleanInversionConverter}}"
+                                                            Grid.Column="2"
+                                                            VerticalOptions="Center"
+                                                            CornerRadius="5"
+                                                            HorizontalOptions="Center"
+                                                            HeightRequest="35"/>
+                                                <Grid Grid.Column="2"
+                                                      IsVisible="{Binding AlreadyRequested}">
+                                                    <Label Text="{Binding AccountPageContent.RequestSentString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                                           FontSize="15"
+                                                           VerticalOptions="Center"
+                                                           VerticalTextAlignment="Center"
+                                                           TextColor="{DynamicResource PermissionColor}"
+                                                           HorizontalTextAlignment="Center"
+                                                           HorizontalOptions="Center"/>
+                                                </Grid>
+
+                                            </Grid>
+                                            </Grid>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        <Label FontSize="20"
+                               Text="{Binding AccountPageContent.NoHomeResultFoundString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                               IsVisible="{Binding HomeNotFoundStringVisible}"/>
+                    </Grid>
+
+                    </StackLayout>
+                    
+                <lottie:AnimationView Animation="innerpageloading.json"
+                                      IsPlaying="False"
+                                      BackgroundColor="Transparent"
+                                      Loop="True"
+                                      HeightRequest="{Binding Source={x:Reference stack},Path=Height}"
+                                      VerticalOptions="Start"
+                                      HorizontalOptions="FillAndExpand"
+                                      Grid.Row="2"
+                                      x:Name="loading"
+                                      IsVisible="False"/>
+            </Grid>
+
+            <Grid MinimumHeightRequest="40"
+                  RowSpacing="0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Label_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding AccountPageContent.CreateHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                       Grid.Row="0"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand"
+                       FontSize="18"/>
+                <Grid Grid.Row="1"
+                      BackgroundColor="LightGray"/>
+                <Image Source="../rightarrow.png"
+                       HorizontalOptions="End"
+                       Grid.Row="0"
+                       HeightRequest="32"
+                       WidthRequest="32"
+                       Margin="2,2,5,2"
+                       Aspect="AspectFit"/>
+                <ScrollView IsVisible="False"
+                            VerticalScrollBarVisibility="Always"
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Always"
+                            Padding="2">
+                    <StackLayout x:Name="createStack">
+
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
