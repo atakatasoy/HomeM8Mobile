@@ -53,6 +53,7 @@
                       HorizontalOptions="FillAndExpand"/>
 
                 <Label FontSize="17"
+                       x:Name="errorLabel"
                        Padding="4,0,0,0"
                        Text="This is an warning !"
                        VerticalTextAlignment="Center"/>

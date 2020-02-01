@@ -19,12 +19,24 @@
                     <RowDefinition Height="2"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Text="{Binding AccountPageContent.CurrentHomeLabelString, Source={x:Static local:AppConfigurationModel.Instance}}"
+                <StackLayout Orientation="Horizontal"
+                             Spacing="10"
+                             Padding="0"
+                             Margin="0"
+                             Grid.Row="0"
+                             HorizontalOptions="StartAndExpand">
+                    <Image Source="../smallHome.png"
+                           Aspect="AspectFit"
+                           WidthRequest="30"
+                           HeightRequest="30"/>
+                    <Label Text="{Binding AccountPageContent.CurrentHomeLabelString, Source={x:Static local:AppConfigurationModel.Instance}}"
                        VerticalTextAlignment="Center"
-                       Grid.Row="0"
+                       TextColor="Gray"
                        HorizontalOptions="StartAndExpand"
                        Margin="0"
                        FontSize="18"/>
+                </StackLayout>
+                
                 <Image Source="../rightarrow.png"
                        HorizontalOptions="End"
                        HeightRequest="32"
@@ -184,13 +196,22 @@
                     <RowDefinition Height="2"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Text="{Binding AccountPageContent.MyHomesLabelString, Source={x:Static local:AppConfigurationModel.Instance}}"
-                       HeightRequest="30"
-                       Grid.Row="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalOptions="FillAndExpand"
-                       FontSize="18">
-                </Label>
+                <StackLayout Grid.Row="0"
+                             Orientation="Horizontal"
+                             Padding="0"
+                             Margin="0"
+                             Spacing="10">
+                    <Image Source="../multihomes.png"
+                           Aspect="AspectFit"
+                           WidthRequest="30"
+                           HeightRequest="30"/>
+                    <Label Text="{Binding AccountPageContent.MyHomesLabelString, Source={x:Static local:AppConfigurationModel.Instance}}"
+                           HeightRequest="30"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="FillAndExpand"
+                           FontSize="18">
+                    </Label>
+                </StackLayout>
                 <Grid Grid.Row="1"
                       BackgroundColor="LightGray"/>
                 <Image Source="../rightarrow.png"
@@ -220,11 +241,21 @@
                     <RowDefinition Height="2"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Text="{Binding AccountPageContent.SearchHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
-                       Grid.Row="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalOptions="FillAndExpand"
-                       FontSize="18"/>
+                <StackLayout Grid.Row="0"
+                             Margin="0"
+                             Padding="0"
+                             Orientation="Horizontal"
+                             Spacing="10">
+                    <Image Aspect="AspectFit"
+                           Source="../finder.png"
+                           WidthRequest="30"
+                           HeightRequest="30"/>
+                    <Label Text="{Binding AccountPageContent.SearchHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="FillAndExpand"
+                           FontSize="18"/>
+                </StackLayout>
+                
                 <Grid Grid.Row="1"
                       BackgroundColor="LightGray"/>
                 <Image Source="../rightarrow.png"
@@ -386,11 +417,21 @@
                     <RowDefinition Height="2"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Text="{Binding AccountPageContent.CreateHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
-                       Grid.Row="0"
+                <StackLayout Orientation="Horizontal"
+                             Margin="0"
+                             Padding="0"
+                             Spacing="10"
+                             Grid.Row="0">
+                    <Image Source="../smallHomePlus.png"
+                           Aspect="AspectFit"
+                           WidthRequest="30"
+                           HeightRequest="30"/>
+                    <Label Text="{Binding AccountPageContent.CreateHomeString,Source={x:Static local:AppConfigurationModel.Instance}}"
                        VerticalTextAlignment="Center"
                        HorizontalOptions="FillAndExpand"
                        FontSize="18"/>
+                </StackLayout>
+                
                 <Grid Grid.Row="1"
                       BackgroundColor="LightGray"/>
                 <Image Source="../rightarrow.png"

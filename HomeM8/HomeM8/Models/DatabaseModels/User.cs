@@ -36,11 +36,9 @@ namespace HomeM8
             {
                 prop.SetValue(this, value);
 
-                var user = con.Table<User>().FirstOrDefault(each => each.accessToken == accessToken);
                 con.BeginTransaction();
                 con.Update(this);
                 con.Commit();
-
             }
         }
     }

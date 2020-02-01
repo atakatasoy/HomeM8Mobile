@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using HomeM8.Views.PartialView;
+using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace HomeM8.Views.Account
 		public AccountPage ()
 		{
 			InitializeComponent ();
+            noConnectionLabel.Text = noConnectionLabel.Text.Insert(0, "-");
             BindingContext = viewModel = new AccountPageViewModel();
             searchEntry.ReturnCommand = new Command(() => SearchButton(this, null));
 		}
@@ -316,7 +319,7 @@ namespace HomeM8.Views.Account
                                 }
                                 else
                                 {
-                                    //disp err
+                                    await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
                                 }
                             })
                         });

@@ -14,9 +14,10 @@ namespace HomeM8.Views.PartialView
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ErrorPopup : PopupPage
 	{
-		public ErrorPopup ()
+		public ErrorPopup (string message)
 		{
 			InitializeComponent ();
+            errorLabel.Text = message;
             BackgroundColor = new Color(0, 0, 0, 0.5);
             CloseWhenBackgroundIsClicked = false;
 		}

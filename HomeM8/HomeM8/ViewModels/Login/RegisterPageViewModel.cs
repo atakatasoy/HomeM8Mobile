@@ -1,6 +1,8 @@
 ﻿using HomeM8.Models;
 using HomeM8.Views;
+using HomeM8.Views.PartialView;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -164,7 +166,7 @@ namespace HomeM8
                         }
                         else
                         {
-                            //lütfen bekleyiniz
+                            await PopupNavigation.Instance.PushAsync(new ErrorPopup("Lütfen Bekleyiniz"));
                         }
                         break;
                     case 1:
@@ -276,7 +278,7 @@ namespace HomeM8
                         }
                         else
                         {
-                            //Lütfen bekleyiniz
+                            await PopupNavigation.Instance.PushAsync(new ErrorPopup("Lütfen bekleyiniz."));
                         }
                         break;
                 }

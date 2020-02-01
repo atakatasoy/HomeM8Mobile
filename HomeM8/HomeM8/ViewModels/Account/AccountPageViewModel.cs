@@ -35,7 +35,7 @@ namespace HomeM8
             }
             else
             {
-                //show err
+                await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
             }
         }
 
@@ -47,8 +47,6 @@ namespace HomeM8
 
         public async Task GetHomesByName()
         {
-            await PopupNavigation.Instance.PushAsync(new ErrorPopup());
-
             if (string.IsNullOrWhiteSpace(HomeSearchBarValue)) return;
 
             HomeNotFoundStringVisible = false;
@@ -82,7 +80,7 @@ namespace HomeM8
             }
             else
             {
-                //err
+                await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
             }
         }
     }

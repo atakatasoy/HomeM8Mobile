@@ -339,6 +339,26 @@
                            Text="{Binding ApplicationContent.NoConnectedHomeString, Source={x:Static local:AppConfigurationModel.Instance}}"
                            TextColor="{DynamicResource NotificationOwnerTextColor}"
                            FontSize="20"/>
+                    <Grid Padding="0"
+                          Margin="0,75,0,0"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RedirectToAccountPageCommand}"/>
+                        </Grid.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="CenterAndExpand"
+                                     Spacing="4"
+                                     Padding="0">
+                            <Label Text="Ev Ara"
+                                   TextColor="Black"
+                                   FontSize="22"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"/>
+                            <Image Source="../finder.png"
+                                   WidthRequest="23"
+                                   HeightRequest="23"/>
+                        </StackLayout>
+                    </Grid>
                 </StackLayout>
             </Grid>
         </Grid>

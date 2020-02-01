@@ -13,7 +13,7 @@ namespace HomeM8.Views
         public ListView GetMenuListView => ListViewMenu;
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         List<HomeMenuItem> menuItems;
-        bool ExternalAction = false;
+        bool ExternalAccess = false;
 
         public MenuPage()
         {
@@ -31,9 +31,9 @@ namespace HomeM8.Views
             ListViewMenu.SelectedItem = menuItems[0];
             ListViewMenu.ItemSelected += async (sender, e) =>
             {
-                if (ExternalAction)
+                if (ExternalAccess)
                 {
-                    ExternalAction = false;
+                    ExternalAccess = false;
                     return;
                 }
                 if (e.SelectedItem == null)
@@ -50,7 +50,7 @@ namespace HomeM8.Views
         }
         public void ChangeSelectedItemWithoutForwarding(int id)
         {
-            ExternalAction = true;
+            ExternalAccess = true;
             ListViewMenu.SelectedItem = menuItems.Find(each => (int)each.Id == id) ?? null;
         }
     }

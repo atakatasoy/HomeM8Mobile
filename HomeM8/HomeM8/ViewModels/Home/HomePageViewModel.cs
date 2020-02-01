@@ -1,5 +1,9 @@
-﻿using HomeM8.Models.Home;
+﻿using HomeM8.Models;
+using HomeM8.Models.Home;
+using HomeM8.Views;
+using HomeM8.Views.PartialView;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.SfCalendar.XForms;
 using System;
 using System.Collections.Generic;
@@ -8,6 +12,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace HomeM8
@@ -18,6 +23,12 @@ namespace HomeM8
         public ObservableCollection<NotificationModel> ItemList { get; set; } = new ObservableCollection<NotificationModel>();
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
         public CalendarEventCollection CalendarInlineEvents { get; set; } = new CalendarEventCollection();
+        public ICommand RedirectToAccountPageCommand { get; set; }
+
+        public HomePageViewModel()
+        {
+            RedirectToAccountPageCommand = new Command(async () => await RedirectToAccountPage());
+        }
 
         bool mNoConnectedHomeToAccount = true;
         public bool NoConnectedHomeToAccount
@@ -65,8 +76,16 @@ namespace HomeM8
             }
             else
             {
-                //show error
+                await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
             }
+        }
+
+        public async Task RedirectToAccountPage()
+        {
+            var mainPage = Application.Current.MainPage as MainPage;
+            var accountPage = (int)MenuItemType.Account;
+            await mainPage.NavigateFromMenu(accountPage);
+            mainPage.menuPage.ChangeSelectedItemWithoutForwarding(accountPage);
         }
 
         public async Task SetCalendarEvents()
@@ -100,7 +119,7 @@ namespace HomeM8
             }
             else
             {
-                //show error
+                await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
             }
         }
     }
