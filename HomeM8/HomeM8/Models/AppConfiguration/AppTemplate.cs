@@ -9,5 +9,6 @@ namespace HomeM8
     {
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
         public string NoConnectedHomeString { get; set; }
+        public string NoNotificationsString { get; set; }
     }
 }

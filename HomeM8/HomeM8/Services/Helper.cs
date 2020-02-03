@@ -23,11 +23,11 @@ namespace HomeM8
 
     public static class Helper
     {
-        public static async Task<T> ApiCall<T>(RequestType type, ControllerType controller, string methodName, string inputParams = null, bool IsSecure = true) where T : class
+        public static async Task<T> ApiCall<T>(RequestType type, ControllerType controller, string actionName, string inputParams = null, bool IsSecure = true) where T : class
         {
             if (type == RequestType.Post && string.IsNullOrWhiteSpace(inputParams))
                 throw new ArgumentNullException();
-            else if (string.IsNullOrWhiteSpace(methodName))
+            else if (string.IsNullOrWhiteSpace(actionName))
                 throw new ArgumentNullException();
             else if (type == RequestType.Get && !string.IsNullOrWhiteSpace(inputParams))
                 throw new ArgumentNullException();
@@ -36,7 +36,7 @@ namespace HomeM8
 
             T response = default(T);
 
-            string url = $"{Utility.BaseURL}/api/{controller}/{methodName}?username={Utility.User.Username}";
+            string url = $"{Utility.BaseURL}/api/{controller}/{actionName}?username={Utility.User.Username}";
 
             switch (type)
             {

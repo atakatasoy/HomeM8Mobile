@@ -226,6 +226,13 @@
                                         <RowDefinition Height="20"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
+                                    <Label Grid.Row="1"
+                                           TextColor="Red"
+                                           FontSize="15"
+                                           IsVisible="{Binding NoNotificationLabelVisible}"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Text="{Binding ApplicationContent.NoNotificationsString, Source={x:Static local:AppConfigurationModel.Instance}}"/>
                                     <ListView Grid.Row="1"
                                           HeightRequest="105"
                                           HorizontalOptions="FillAndExpand"
@@ -279,13 +286,20 @@
                                         <RowDefinition Height="20"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
+                                    <Label Text="{Binding ApplicationContent.NoNotificationsString, Source={x:Static local:AppConfigurationModel.Instance}}"
+                                           Grid.Row="1"
+                                           VerticalOptions="Center"
+                                           TextColor="Red"
+                                           FontSize="15"
+                                           IsVisible="{Binding NoNotificationLabelVisible2}"
+                                           HorizontalOptions="Center"/>
                                     <ListView Grid.Row="1"
                                           HeightRequest="105"
                                           HorizontalOptions="FillAndExpand"
                                           HasUnevenRows="True"
                                           SelectionMode="None"
                                           ItemTemplate="{DynamicResource NotificationListview}"
-                                          ItemsSource="{Binding ItemList}"
+                                          ItemsSource="{Binding ItemList2}"
                                           Margin="0"/>
                                     <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>

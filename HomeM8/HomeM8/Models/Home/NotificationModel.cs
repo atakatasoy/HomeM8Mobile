@@ -11,6 +11,7 @@ namespace HomeM8
         public string NotificationMessage { get; set; }
         public string NotificationName { get; set; }
         public string NotificationCommentCount { get; set; }
+        public string NotificationType { get; set; }
         public string CreateDate { get; set; }
         public int ExpectedAnswerRange { get; set; }
 

@@ -18,6 +18,7 @@ namespace HomeM8.Views.PartialView
 		{
 			InitializeComponent ();
             errorLabel.Text = message;
+            okButton.Text = AppConfigurationModel.CurrentLanguage == 1 ? "Tamam" : "OK";
             BackgroundColor = new Color(0, 0, 0, 0.5);
             CloseWhenBackgroundIsClicked = false;
 		}

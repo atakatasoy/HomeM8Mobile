@@ -58,6 +58,7 @@
                        Text="This is an warning !"
                        VerticalTextAlignment="Center"/>
                 <Button HorizontalOptions="End"
+                        x:Name="okButton"
                         Text="Tamam"
                         FontSize="14"
                         Padding="0"

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:HomeM8.CustomRenderers"
+             x:Class="HomeM8.Views.PartialView.CustomInput">
+  <ContentView.Content>
+        <Frame Padding="1"
+               BackgroundColor="{Binding BackgroundColor}"
+               CornerRadius="10">
+            <Grid Margin="1"
+                  Padding="0"
+                  IsClippedToBounds="True"
+                  HorizontalOptions="FillAndExpand"
+                  HeightRequest="35"
+                  ColumnSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       Text="{Binding TitleText}"/>
+                <Grid Grid.Column="1"
+                      BackgroundColor="{Binding LineColor}"
+                      Margin="0,3,0,3"/>
+                <cc:BorderlessEntry Grid.Column="2"
+                                    ReturnType="Done"
+                                    x:Name="entry"
+                                    ReturnCommand="{Binding ReturnCommand}"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center"
+                                    Placeholder="{Binding PlaceholderText}"
+                                    Text="{Binding EntryText}"/>
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

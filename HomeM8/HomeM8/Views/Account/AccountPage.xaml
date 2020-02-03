@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:HomeM8"
+             xmlns:pv="clr-namespace:HomeM8.Views.PartialView"
              xmlns:cc="clr-namespace:HomeM8.CustomRenderers"
              xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              x:Class="HomeM8.Views.Account.AccountPage"
+             x:Name="page"
              ControlTemplate="{DynamicResource BottomNavigationBarTemplate}">
     <ContentPage.Content>
         <StackLayout Spacing="7"
@@ -84,16 +86,6 @@
                             <Grid BackgroundColor="LightGray"
                               HeightRequest="1"
                               Margin="0,-2,0,0"/>
-                            <StackLayout>
-                                <Label Text="{Binding AccountPageContent.HomeMembersString,Source={x:Static local:AppConfigurationModel.Instance}}"
-                                   FontSize="15"/>
-                                <Grid BackgroundColor="LightGray"
-                              HeightRequest="1"
-                              Margin="0,-2,0,0"/>
-                                <StackLayout x:Name="membersStack">
-
-                                </StackLayout>
-                            </StackLayout>
                             <StackLayout Orientation="Horizontal"
                                      Spacing="0">
                                 <Label Text="{Binding AccountPageContent.HomeManagerString,Source={x:Static local:AppConfigurationModel.Instance}}"
@@ -106,6 +98,16 @@
                             <Grid BackgroundColor="LightGray"
                               HeightRequest="1"
                               Margin="0,-2,0,0"/>
+                            <StackLayout>
+                                <Label Text="{Binding AccountPageContent.HomeMembersString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                   FontSize="15"/>
+                                <Grid BackgroundColor="LightGray"
+                              HeightRequest="1"
+                              Margin="0,-2,0,0"/>
+                                <StackLayout x:Name="membersStack">
+
+                                </StackLayout>
+                            </StackLayout>
                             <StackLayout>
                                 <Label Text="{Binding AccountPageContent.HomeRulesString,Source={x:Static local:AppConfigurationModel.Instance}}"
                                    FontSize="15"/>
@@ -160,7 +162,7 @@
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="StackTapped"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Label Text="{Binding AccountPageContent.DeleteButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                    <Label Text="{Binding AccountPageContent.ExitButtonString,Source={x:Static local:AppConfigurationModel.Instance}}"
                                        HeightRequest="40"
                                        VerticalTextAlignment="Center"
                                        Padding="0"
@@ -446,8 +448,35 @@
                             Grid.Row="2"
                             HorizontalScrollBarVisibility="Always"
                             Padding="2">
-                    <StackLayout x:Name="createStack">
+                    <StackLayout x:Name="createStack"
+                                 Padding="6,10,6,0"
+                                 Spacing="6">
+                        <pv:CustomInput PlaceholderText="{Binding AccountPageContent.CreateHome_HomeNamePlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                        TitleText="{Binding AccountPageContent.CreateHome_HomeNameString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                        x:Name="homeNameEntry"
+                                        Returned="Entry_Returned"
+                                        EntryText="{Binding BindingContext.CreateHome_HomeName,Source={x:Reference page}}"
+                                        LineColor="{DynamicResource AppInfoStringsColor}"
+                                        BackgroundColor="{DynamicResource LightestGray}"/>
 
+                        <pv:CustomInput PlaceholderText="{Binding AccountPageContent.CreateHome_HomeAddressPlaceholderString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                        TitleText="{Binding AccountPageContent.CreateHome_HomeAddressString,Source={x:Static local:AppConfigurationModel.Instance}}"
+                                        x:Name="homeAddressEntry"
+                                        Returned="Entry_Returned"
+                                        EntryText="{Binding BindingContext.CreateHome_HomeAddress,Source={x:Reference page}}"
+                                        BackgroundColor="{DynamicResource LightestGray}"
+                                        LineColor="{DynamicResource AppInfoStringsColor}"/>
+
+                        <Grid>
+                            <Button HorizontalOptions="EndAndExpand"
+                                    Text="Oluştur"
+                                    Margin="0,4,0,0"
+                                    Clicked="CreateButton"
+                                    TextColor="{DynamicResource ButtonTextColor}"
+                                    BackgroundColor="{DynamicResource ButtonColor}"
+                                    HeightRequest="35"
+                                    CornerRadius="15"/>
+                        </Grid>
                     </StackLayout>
                 </ScrollView>
             </Grid>

@@ -1,5 +1,7 @@
 ﻿using HomeM8.Views;
+using HomeM8.Views.PartialView;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,11 +31,11 @@ namespace HomeM8
                 if (response.responseVal == 0)
                 {
                     AlreadyRequested = true;
-                    await (Application.Current.MainPage as MainPage).DisplayAlert("HomeM8", "Başarılı", "tamam");
+                    await PopupNavigation.Instance.PushAsync(new ErrorPopup("Başarılı"));
                 }
                 else
                 {
-                    await (Application.Current.MainPage as MainPage).DisplayAlert("HomeM8", "Nope!", "tamam");
+                    await PopupNavigation.Instance.PushAsync(new ErrorPopup("Beklenmedik hata"));
                 }
             });
         }

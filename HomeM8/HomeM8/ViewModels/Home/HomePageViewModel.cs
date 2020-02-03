@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,8 +22,11 @@ namespace HomeM8
     {
         Random rnd = new Random(); 
         public ObservableCollection<NotificationModel> ItemList { get; set; } = new ObservableCollection<NotificationModel>();
+        public ObservableCollection<NotificationModel> ItemList2 { get; set; } = new ObservableCollection<NotificationModel>();
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
         public CalendarEventCollection CalendarInlineEvents { get; set; } = new CalendarEventCollection();
+        public bool NoNotificationLabelVisible { get; set; } = false;
+        public bool NoNotificationLabelVisible2 { get; set; } = false;
         public ICommand RedirectToAccountPageCommand { get; set; }
 
         public HomePageViewModel()
@@ -72,7 +76,14 @@ namespace HomeM8
 
             if (response.responseVal == 0)
             {
-                ItemList = response.notificationsList;
+                var instantNotifications = response.notificationsList.Where(e => e.NotificationType == "Instant");
+                var generalNotifications = response.notificationsList.Where(e => e.NotificationType == "General");
+
+                NoNotificationLabelVisible = instantNotifications.Count() == 0;
+                NoNotificationLabelVisible2 = generalNotifications.Count() == 0;
+
+                ItemList = new ObservableCollection<NotificationModel>(instantNotifications);
+                ItemList2 = new ObservableCollection<NotificationModel>(generalNotifications);
             }
             else
             {
@@ -84,6 +95,7 @@ namespace HomeM8
         {
             var mainPage = Application.Current.MainPage as MainPage;
             var accountPage = (int)MenuItemType.Account;
+
             await mainPage.NavigateFromMenu(accountPage);
             mainPage.menuPage.ChangeSelectedItemWithoutForwarding(accountPage);
         }

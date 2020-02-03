@@ -1,4 +1,6 @@
-﻿using HomeM8.Views.PartialView;
+﻿using HomeM8.Models;
+using HomeM8.Models.EventArguments;
+using HomeM8.Views.PartialView;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -19,10 +21,60 @@ namespace HomeM8.Views.Account
 		public AccountPage ()
 		{
 			InitializeComponent ();
+            homeNameEntry.Name = "HomeName";
+            homeAddressEntry.Name = "HomeAddress";
             noConnectionLabel.Text = noConnectionLabel.Text.Insert(0, "-");
             BindingContext = viewModel = new AccountPageViewModel();
             searchEntry.ReturnCommand = new Command(() => SearchButton(this, null));
 		}
+
+        private async void CreateButton(object sender,EventArgs e)
+        {
+            await CreateHomeAction();
+        }
+
+        async Task CreateHomeAction()
+        {
+            if (await viewModel.CreateHome() is CreateHomeResponseModel response)
+            {
+                if (response.responseVal == 0)
+                {
+                    var mainPage = Application.Current.MainPage as MainPage;
+                    var homePage = (int)MenuItemType.Home;
+
+                    await PopupNavigation.Instance.PushAsync(new ErrorPopup("Başarılı"));
+
+                    Utility.User.AddHome(response.HomeID);
+                    Utility.User.SetValue(nameof(Utility.User.CurrentHome), response.HomeID);
+
+                    await mainPage.NavigateFromMenu(homePage);
+                    mainPage.menuPage.ChangeSelectedItemWithoutForwarding(homePage);
+
+                    viewModel.ResetCreateHomeArguments();
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
+                }
+            }
+            else
+            {
+                await PopupNavigation.Instance.PushAsync(new ErrorPopup("Birşeyler ters gitti! Lütfen daha sonra tekrar deneyiniz"));
+            }
+        }
+
+        private async void Entry_Returned(object sender,EntryEventArgs e)
+        {
+            if (e.Name == "HomeName")
+            {
+                homeAddressEntry.FocusEntry();
+            }
+            else
+            {
+                await CreateHomeAction();
+            }
+        }
+
         Grid lastExpanded = null;
         private void Label_Tapped(object sender,EventArgs e)
         {
@@ -360,8 +412,33 @@ namespace HomeM8.Views.Account
             }
             else
             {
-                //Delete home
-                await DisplayAlert("HomeM8", "Delete Home", "Tamam");
+                if(await DisplayAlert("HomeM8","Evden ayrılmak istediğinize emin misiniz ?", "Evet", "Hayır"))
+                {
+                    Utility.ShowIndicator = true;
+
+                    var response = await Helper.ApiCall<BaseResponseModel>(RequestType.Post, ControllerType.User, "leavehome", JsonConvert.SerializeObject(new
+                    {
+                        AccessToken = Utility.User.accessToken,
+                        HomeID = Utility.User.CurrentHome
+                    }));
+
+                    Utility.ShowIndicator = false;
+
+                    if (response.responseVal == 0)
+                    {
+                        await PopupNavigation.Instance.PushAsync(new ErrorPopup("Başarılı"));
+                        //First we should delete home from the interface
+                        //viewModel.DeleteHome((int)Utility.User.CurrentHome);
+                        await viewModel.SetAccountInfo();
+                        //then we delete it from the db
+                        Utility.User.LeaveHome();
+                        StackLayoutSetup();
+                    }
+                    else
+                    {
+                        await PopupNavigation.Instance.PushAsync(new ErrorPopup(response.responseText));
+                    }
+                }
             }
         }
         void CloseLastOpenedStack()

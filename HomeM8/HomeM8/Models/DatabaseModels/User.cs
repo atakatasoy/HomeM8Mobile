@@ -22,6 +22,23 @@ namespace HomeM8
 
         public List<int> GetConnectedHomes() => ConnectedHomes?.Split(',').Select(each => Convert.ToInt32(each)).ToList();
 
+        public void AddHome(int homeId)
+        {
+            var listOfHomes = ConnectedHomes.Split(',').ToList();
+            listOfHomes.Add(homeId.ToString());
+            SetValue(nameof(ConnectedHomes), Helper.ConvertCollectionToString(listOfHomes, ','));
+        }
+
+        public void LeaveHome()
+        {
+            var listOfHomes = ConnectedHomes.Split(',').ToList();
+            listOfHomes.Remove(CurrentHome.ToString());
+
+            CurrentHome = listOfHomes.Count > 0 ? new int?(Convert.ToInt32(listOfHomes.FirstOrDefault(e => true))) : null;
+
+            SetValue(nameof(ConnectedHomes), Helper.ConvertCollectionToString(listOfHomes, ','));
+        }
+
         public void SetValue<T>(string nameOfProp , T value)
         {
             var prop = GetType().GetProperties().FirstOrDefault(each => each.Name == nameOfProp);

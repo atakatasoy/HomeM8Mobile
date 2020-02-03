@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -18,10 +19,39 @@ namespace HomeM8
 
         public AccountInfoModel AccountInfo { get; set; }
 
-        public List<GetHomesByNameModel> SearchResult { get; set; }
+        public ObservableCollection<GetHomesByNameModel> SearchResult { get; set; }
 
         public string HomeSearchBarValue { get; set; }
+        public string CreateHome_HomeName { get; set; }
+        public string CreateHome_HomeAddress { get; set; }
         public bool HomeNotFoundStringVisible { get; set; }
+        public ICommand CreateHome_CreateButtonCommand { get; set; }
+
+        public AccountPageViewModel()
+        {
+            CreateHome_CreateButtonCommand = new Command(async () => await CreateHome());
+        }
+
+        public async Task<BaseResponseModel> CreateHome()
+        {
+            Utility.ShowIndicator = true;
+
+            var response = await Helper.ApiCall<CreateHomeResponseModel>(RequestType.Post, ControllerType.Home, "createhome", JsonConvert.SerializeObject(new
+            {
+                AccessToken = Utility.User.accessToken,
+                HomeName = CreateHome_HomeName,
+                HomeAddress = CreateHome_HomeAddress
+            }));
+
+            Utility.ShowIndicator = false;
+            return response;
+        }
+
+        public void ResetCreateHomeArguments()
+        {
+            CreateHome_HomeAddress = "";
+            CreateHome_HomeName = "";
+        }
 
         public async Task SetAccountInfo()
         {
@@ -42,7 +72,7 @@ namespace HomeM8
         public void ClearSearchArguments()
         {
             HomeSearchBarValue = "";
-            SearchResult = new List<GetHomesByNameModel>();
+            SearchResult = new ObservableCollection<GetHomesByNameModel>();
         }
 
         public async Task GetHomesByName()
@@ -51,7 +81,7 @@ namespace HomeM8
 
             HomeNotFoundStringVisible = false;
 
-            SearchResult = new List<GetHomesByNameModel>();
+            SearchResult = new ObservableCollection<GetHomesByNameModel>();
 
             var parameters = JsonConvert.SerializeObject(new { AccessToken = Utility.User.accessToken, Substring = HomeSearchBarValue });
 
@@ -75,7 +105,7 @@ namespace HomeM8
                 }
                 else
                 {
-                    SearchResult = buffer;
+                    SearchResult = new ObservableCollection<GetHomesByNameModel>(buffer);
                 }
             }
             else
